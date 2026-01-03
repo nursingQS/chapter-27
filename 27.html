@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Nursing Flashcards - Chapter 27: Cardiovascular Dysfunction</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8b0000 0%, #b22222 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 96vh;
+            background: #f8f9fa;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #b22222;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8b0000, #b22222);
+            color: white;
+            padding: 12px 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M50,30 A20,20 0 1,1 50,70 A20,20 0 1,1 50,30" fill="white"/><path d="M35,50 L50,35 L65,50 L50,65 Z" fill="white"/></svg>');
+            background-size: 80px 80px;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            position: relative;
+            color: #ffcccb;
+            line-height: 1.2;
+        }
+        
+        .header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            color: #ffcccb;
+            margin-bottom: 8px;
+        }
+        
+        .progress {
+            background: #8b0000;
+            height: 6px;
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #ff6b6b, #b22222);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section-nav {
+            display: flex;
+            gap: 6px;
+            padding: 8px 10px;
+            background: linear-gradient(135deg, #b22222, #8b0000);
+            border-bottom: 1px solid #ff6b6b;
+            flex-shrink: 0;
+            overflow-x: auto;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-btn {
+            padding: 5px 10px;
+            border: 2px solid #ff6b6b;
+            background: rgba(255,255,255,0.95);
+            color: #8b0000;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+        }
+        
+        .section-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #b22222);
+            color: white;
+            border-color: #8b0000;
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.5);
+        }
+        
+        .flashcard {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .question-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 6px solid #b22222;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+        
+        .question-icon {
+            background: linear-gradient(135deg, #8b0000, #ff6b6b);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.4);
+        }
+        
+        .question {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #2c3e50;
+            flex-grow: 1;
+            font-weight: 500;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        .multiple-select-indicator {
+            background: #dc3545;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 6px;
+            white-space: nowrap;
+            box-shadow: 0 3px 6px rgba(220, 53, 69, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .option {
+            padding: 8px 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            flex-shrink: 0;
+            min-height: 45px;
+        }
+        
+        .option:hover {
+            background: #ffe6e6;
+            border-color: #ff9999;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 153, 153, 0.2);
+        }
+        
+        .option-letter {
+            background: #f8d7da;
+            color: #8b0000;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            border: 2px solid #f5c6cb;
+        }
+        
+        /* CORRECT - ALWAYS GREEN */
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option.correct .option-letter {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        
+        /* INCORRECT - ALWAYS RED */
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        
+        .option.selected {
+            background: #ffe6e6;
+            border-color: #b22222;
+            color: #8b0000;
+        }
+        
+        .option.selected .option-letter {
+            background: #b22222;
+            color: white;
+            border-color: #8b0000;
+        }
+        
+        .feedback {
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 3px solid #28a745;
+            color: #155724;
+            display: flex;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 3px solid #dc3545;
+            color: #721c24;
+            display: flex;
+        }
+        
+        .feedback-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f8d7da;
+            border-top: 2px solid #f5c6cb;
+            flex-shrink: 0;
+            gap: 8px;
+        }
+        
+        .counter {
+            font-weight: bold;
+            color: #8b0000;
+            font-size: 0.9rem;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #b22222;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8b0000, #b22222);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(139, 0, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #b22222, #8b0000);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(178, 34, 34, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 193, 7, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(220, 53, 69, 0.4);
+        }
+        
+        .rationale {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 3px solid #ffc107;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+            flex-shrink: 0;
+            overflow: hidden;
+            max-height: 120px;
+        }
+        
+        .rationale.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .rationale h4 {
+            color: #e0a800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .rationale p {
+            color: #856404;
+            line-height: 1.4;
+            font-size: 0.8rem;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        
+        .stat {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .cancel-selection {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            margin: 0 auto 8px auto;
+            display: none;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .cancel-selection:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(220, 53, 69, 0.4);
+        }
+        
+        .cancel-selection.show {
+            display: flex;
+        }
+        
+        .multiple-select-instructions {
+            text-align: center;
+            color: #dc3545;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            background: #fff3cd;
+            padding: 6px;
+            border-radius: 8px;
+            border: 2px solid #ffeaa7;
+            flex-shrink: 0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Remove all scrollbars */
+        .options,
+        .rationale,
+        .container,
+        .flashcard,
+        body {
+            overflow: hidden !important;
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+        
+        .options::-webkit-scrollbar,
+        .rationale::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                height: 98vh;
+            }
+            
+            .section-btn {
+                min-width: 100px;
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+            
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .navigation {
+                padding: 8px 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+            
+            .counter {
+                order: -1;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 4px;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .question {
+                font-size: 0.85rem;
+            }
+            
+            .option {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                min-height: 40px;
+            }
+            
+            .question-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .option-letter {
+                width: 22px;
+                height: 22px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-height: 700px) {
+            .container {
+                height: 99vh;
+            }
+            
+            .header {
+                padding: 8px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header .subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .question-container {
+                padding: 10px;
+                margin-bottom: 6px;
+            }
+            
+            .question {
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+            
+            .option {
+                padding: 6px 8px;
+                min-height: 35px;
+                font-size: 0.75rem;
+            }
+            
+            .navigation {
+                padding: 6px 8px;
+            }
+            
+            .rationale {
+                max-height: 80px;
+                padding: 8px;
+            }
+            
+            .feedback {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .option-letter {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
+            .stats {
+                display: none;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            .question-container {
+                padding: 8px;
+            }
+            
+            .question-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .option {
+                min-height: 30px;
+                padding: 4px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .option-letter {
+                width: 18px;
+                height: 18px;
+                font-size: 0.65rem;
+            }
+            
+            .btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .rationale {
+                max-height: 60px;
+                padding: 6px;
+            }
+            
+            .rationale p {
+                font-size: 0.7rem;
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❤️ Chapter 27: The Child with Cardiovascular Dysfunction</h1>
+            <div class="subtitle">Cardiovascular Nursing Flashcards - Heart & Blood Vessel Theme</div>
+            <div class="stats">
+                <div class="stat">📚 61 Questions</div>
+                <div class="stat">🎯 Immediate Feedback</div>
+                <div class="stat">❤️ Cardiac Focus</div>
+                <div class="stat">🔄 Multiple Question Types</div>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="section-nav">
+            <button class="section-btn active" onclick="setSection('multiple-choice')">Multiple Choice (52)</button>
+            <button class="section-btn" onclick="setSection('multiple-response')">Multiple Response (9)</button>
+            <button class="section-btn" onclick="setSection('all')">All Mixed (61)</button>
+        </div>
+        
+        <div class="flashcard">
+            <div class="question-container">
+                <div class="question-icon" id="questionNumber">1</div>
+                <div class="question" id="question"></div>
+                <div class="multiple-select-indicator" id="multipleSelectIndicator" style="display: none;">Multiple Answers</div>
+            </div>
+            
+            <div class="multiple-select-instructions" id="multipleSelectInstructions" style="display: none;">
+                💡 Select ALL correct answers
+            </div>
+            
+            <div class="options" id="options"></div>
+            
+            <button class="btn cancel-selection" id="cancelBtn" onclick="cancelSelection()">
+                🔄 Reset
+            </button>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div id="feedbackText"></div>
+            </div>
+            <div class="rationale" id="rationale">
+                <h4>💡 Rationale:</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">
+                ⬅️ Prev
+            </button>
+            <div class="counter" id="counter">1/52</div>
+            <button class="btn btn-warning" id="submitBtn" onclick="submitAnswer()" style="display: none;">
+                ✅ Submit
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextCard()">
+                Next ➡️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Chapter 27 Data - The Child with Cardiovascular Dysfunction
+        const sections = {
+            'multiple-choice': [
+                {
+                    question: "What term is defined as the volume of blood ejected by the heart in 1 minute?",
+                    options: [
+                        "Afterload",
+                        "Cardiac cycle",
+                        "Stroke volume",
+                        "Cardiac output"
+                    ],
+                    correct: 3,
+                    rationale: "Cardiac output is defined as the volume of blood ejected by the heart in 1 minute. Cardiac output = Heart rate × Stroke volume. Afterload is the resistance against which the ventricles must pump when ejecting blood. A cardiac cycle is the sequential contraction and relaxation of both the atria and ventricles. Stroke volume is the amount of blood ejected by the heart in any one contraction."
+                },
+                {
+                    question: "A chest radiography examination is ordered for a child with suspected cardiac problems. The child's parent asks the nurse, 'What will the x-ray show about the heart?' The nurse's response should be based on knowledge that the radiograph provides which information?",
+                    options: [
+                        "Shows bones of the chest but not the heart",
+                        "Evaluates the vascular anatomy outside of the heart",
+                        "Shows a graphic measure of electrical activity of the heart",
+                        "Supplies information on heart size and pulmonary blood flow patterns"
+                    ],
+                    correct: 3,
+                    rationale: "Chest radiographs provide information on the size of the heart and pulmonary blood flow patterns. The bones of the chest are visible on chest radiographs, but the heart and blood vessels are also seen. Magnetic resonance imaging is a noninvasive technique that allows for evaluation of vascular anatomy outside of the heart. A graphic measure of electrical activity of the heart is provided by electrocardiography."
+                },
+                {
+                    question: "A 6-year-old child is scheduled for a cardiac catheterization. What consideration is most important in planning preoperative teaching?",
+                    options: [
+                        "Preoperative teaching should be directed at his parents because he is too young to understand.",
+                        "Preoperative teaching should be adapted to his level of development so that he can understand.",
+                        "Preoperative teaching should be done several days before the procedure so he will be prepared.",
+                        "Preoperative teaching should provide details about the actual procedures so he will know what to expect."
+                    ],
+                    correct: 1,
+                    rationale: "Preoperative teaching should always be directed to the child's stage of development. The caregivers also benefit from these explanations. The parents may ask additional questions, which should be answered, but the child needs to receive the information based on developmental level. This age group will not understand in-depth descriptions. School-age children should be prepared close to the time of the cardiac catheterization."
+                },
+                {
+                    question: "After returning from cardiac catheterization, the nurse monitors the child's vital signs. The heart rate should be counted for how many seconds?",
+                    options: [
+                        "15",
+                        "30",
+                        "60",
+                        "120"
+                    ],
+                    correct: 2,
+                    rationale: "The heart rate is counted for a full minute to determine whether arrhythmias or bradycardia is present. Fifteen to 30 seconds are too short for accurate assessment. Sixty seconds is sufficient to assess heart rate and rhythm."
+                },
+                {
+                    question: "After returning from cardiac catheterization, the nurse determines that the pulse distal to the catheter insertion site is weaker. How should the nurse respond?",
+                    options: [
+                        "Elevate the affected extremity.",
+                        "Notify the practitioner of the observation.",
+                        "Record data on the assessment flow record.",
+                        "Apply warm compresses to the insertion site."
+                    ],
+                    correct: 2,
+                    rationale: "The pulse distal to the catheterization site may be weaker for the first few hours after catheterization but should gradually increase in strength. Documentation of the finding provides a baseline. The extremity is maintained straight for 4 to 6 hours. This is an expected change. The pulse is monitored. If there are neurovascular changes in the extremity, the practitioner is notified. The site is kept dry. Warm compresses are not indicated."
+                },
+                {
+                    question: "The nurse is caring for a school-age girl who has had a cardiac catheterization. The child tells the nurse that her bandage is too wet. The nurse finds the bandage and bed soaked with blood. What nursing action is most appropriate to institute initially?",
+                    options: [
+                        "Notify the physician.",
+                        "Place the child in Trendelenburg position.",
+                        "Apply a new bandage with more pressure.",
+                        "Apply direct pressure above the catheterization site."
+                    ],
+                    correct: 3,
+                    rationale: "When bleeding occurs, direct continuous pressure is applied 2.5 cm (1 inch) above the percutaneous skin site to localize pressure on the vessel puncture. The physician can be notified, and a new bandage with more pressure can be applied after pressure is applied. The nurse can have someone else notify the physician while the pressure is being maintained. Trendelenburg positioning would not be a helpful intervention. It would increase the drainage from the lower extremities."
+                },
+                {
+                    question: "What statement best identifies the cause of heart failure (HF)?",
+                    options: [
+                        "Disease related to cardiac defects",
+                        "Consequence of an underlying cardiac defect",
+                        "Inherited disorder associated with a variety of defects",
+                        "Result of diminished workload imposed on an abnormal myocardium"
+                    ],
+                    correct: 1,
+                    rationale: "HF is the inability of the heart to pump an adequate amount of blood to the systemic circulation at normal filling pressures to meet the body's metabolic demands. HF is not a disease but rather a result of the inability of the heart to pump efficiently. HF is not inherited. HF occurs most frequently secondary to congenital heart defects in which structural abnormalities result in increased volume load or increased pressures on the ventricles."
+                },
+                {
+                    question: "The nurse finds that a 6-month-old infant has an apical pulse of 166 beats/min during sleep. What nursing intervention is most appropriate at this time?",
+                    options: [
+                        "Administer oxygen.",
+                        "Record data on the nurse's notes.",
+                        "Report data to the practitioner.",
+                        "Place the child in the high Fowler position."
+                    ],
+                    correct: 2,
+                    rationale: "One of the earliest signs of HF is tachycardia (sleeping heart rate >160 beats/min) as a direct result of sympathetic stimulation. The practitioner needs to be notified for evaluation of possible HF. Although oxygen or a semiupright position may be indicated, the first action is to report the data to the practitioner."
+                },
+                {
+                    question: "What drug is an angiotensin-converting enzyme (ACE) inhibitor?",
+                    options: [
+                        "Furosemide (Lasix)",
+                        "Captopril (Capoten)",
+                        "Chlorothiazide (Diuril)",
+                        "Spironolactone (Aldactone)"
+                    ],
+                    correct: 1,
+                    rationale: "Captopril is an ACE inhibitor. Furosemide is a loop diuretic. Chlorothiazide works on the distal tubules. Spironolactone blocks the action of aldosterone and is a potassium-sparing diuretic."
+                },
+                {
+                    question: "A 2-year-old child is receiving digoxin (Lanoxin). The nurse should notify the practitioner and withhold the medication if the apical pulse is less than which rate?",
+                    options: [
+                        "60 beats/min",
+                        "90 beats/min",
+                        "100 beats/min",
+                        "120 beats/min"
+                    ],
+                    correct: 1,
+                    rationale: "If a 1-minute apical pulse is less than 90 beats/min for an infant or young child, the digoxin is withheld. Sixty beats/min is the cut-off for holding the digoxin dose in an adult. One hundred to 120 beats/min is an acceptable pulse rate for the administration of digoxin."
+                },
+                {
+                    question: "What clinical manifestation is a common sign of digoxin toxicity?",
+                    options: [
+                        "Seizures",
+                        "Vomiting",
+                        "Bradypnea",
+                        "Tachycardia"
+                    ],
+                    correct: 1,
+                    rationale: "Vomiting is a common sign of digoxin toxicity and is often unrelated to feedings. Seizures are not associated with digoxin toxicity. The child will have a slower (not faster) heart rate but not a slower respiratory rate."
+                },
+                {
+                    question: "The parents of a young child with heart failure (HF) tell the nurse that they are nervous about giving digoxin. The nurse's response should be based on which knowledge?",
+                    options: [
+                        "It is a safe, frequently used drug.",
+                        "Parents lack the expertise necessary to administer digoxin.",
+                        "It is difficult to either overmedicate or undermedicate with digoxin.",
+                        "Parents need to learn specific, important guidelines for administration of digoxin."
+                    ],
+                    correct: 3,
+                    rationale: "Digoxin has a narrow therapeutic range. The margin of safety between therapeutic, toxic, and lethal doses is very small. Specific guidelines are available for parents to learn how to administer the drug safely and to monitor for side effects. Parents may lack the expertise to administer the drug at first, but with discharge preparation, they should be prepared to administer the drug safely."
+                },
+                {
+                    question: "What nutritional component should be altered in the infant with heart failure (HF)?",
+                    options: [
+                        "Decrease in fats",
+                        "Increase in fluids",
+                        "Decrease in protein",
+                        "Increase in calories"
+                    ],
+                    correct: 3,
+                    rationale: "Infants with HF have a greater metabolic rate because of poor cardiac function and increased heart and respiratory rates. Their caloric needs are greater than those of average infants, yet their ability to take in calories is diminished by their fatigue. The diet should include increased protein and increased fat to facilitate the child's intake of sufficient calories. Fluids must be carefully monitored because of the HF."
+                },
+                {
+                    question: "Decreasing the demands on the heart is a priority in care for the infant with heart failure (HF). In evaluating the infant's status, which finding is indicative of achieving this goal?",
+                    options: [
+                        "Irritability when awake",
+                        "Capillary refill of more than 5 seconds",
+                        "Appropriate weight gain for age",
+                        "Positioned in high Fowler position to maintain oxygen saturation at 90%"
+                    ],
+                    correct: 2,
+                    rationale: "Appropriate weight gain for an infant is indicative of successful feeding and a reduction in caloric loss secondary to the HF. Irritability is a symptom of HF. The child also uses additional energy when irritable. Capillary refill should be brisk and within 2 to 3 seconds. The child needs to be positioned upright to maintain oxygen saturation at 90%. Positioning is helping to decrease respiratory effort, but the infant is still having difficulty with oxygenation."
+                },
+                {
+                    question: "The nurse is caring for a child with persistent hypoxia secondary to a cardiac defect. The nurse recognizes the risk of cerebrovascular accidents (strokes) occurring. What strategy is an important objective to decrease this risk?",
+                    options: [
+                        "Minimize seizures.",
+                        "Prevent dehydration.",
+                        "Promote cardiac output.",
+                        "Reduce energy expenditure."
+                    ],
+                    correct: 1,
+                    rationale: "In children with persistent hypoxia, polycythemia develops. Dehydration must be prevented in hypoxemic children because it potentiates the risk of strokes. Minimizing seizures, promoting cardiac output, and reducing energy expenditure will not reduce the risk of cerebrovascular accidents."
+                },
+                {
+                    question: "A 3-month-old infant has a hypercyanotic spell. What should be the nurse's first action?",
+                    options: [
+                        "Assess for neurologic defects.",
+                        "Prepare the family for imminent death.",
+                        "Begin cardiopulmonary resuscitation.",
+                        "Place the child in the knee-chest position."
+                    ],
+                    correct: 3,
+                    rationale: "The first action is to place the infant in the knee-chest position. Blow-by oxygen may be indicated. Neurologic defects are unlikely. Preparing the family for imminent death or beginning cardiopulmonary resuscitation should be unnecessary. The child is assessed for airway, breathing, and circulation. Often, calming the child and administering oxygen and morphine can alleviate the hypercyanotic spell."
+                },
+                {
+                    question: "A cardiac defect that allows blood to shunt from the (high pressure) left side of the heart to the (lower pressure) right side can result in which condition?",
+                    options: [
+                        "Cyanosis",
+                        "Heart failure",
+                        "Decreased pulmonary blood flow",
+                        "Bounding pulses in upper extremities"
+                    ],
+                    correct: 1,
+                    rationale: "As blood is shunted into the right side of the heart, there is increased pulmonary blood flow and the child is at high risk for heart failure. Cyanosis usually occurs in defects with decreased pulmonary blood flow. Bounding upper extremity pulses are a manifestation of coarctation of the aorta."
+                },
+                {
+                    question: "What blood flow pattern occurs in a ventricular septal defect?",
+                    options: [
+                        "Mixed blood flow",
+                        "Increased pulmonary blood flow",
+                        "Decreased pulmonary blood flow",
+                        "Obstruction to blood flow from ventricles"
+                    ],
+                    correct: 1,
+                    rationale: "The opening in the septal wall allows for blood to flow from the higher pressure left ventricle into the lower pressure right ventricle. This left-to-right shunt creates increased pulmonary blood flow. The shunt is one way, from high pressure to lower pressure; oxygenated and unoxygenated blood do not mix. The outflow of blood from the ventricles is not affected by the septal defect."
+                },
+                {
+                    question: "The physician suggests that surgery be performed for patent ductus arteriosus (PDA) to prevent which complication?",
+                    options: [
+                        "Hypoxemia",
+                        "Right-to-left shunt of blood",
+                        "Decreased workload on the left side of the heart",
+                        "Pulmonary vascular congestion"
+                    ],
+                    correct: 3,
+                    rationale: "In PDA, blood flows from the higher pressure aorta into the lower pressure pulmonary vein, resulting in increased pulmonary blood flow. This creates pulmonary vascular congestion. Hypoxemia usually results from defects with mixed blood flow and decreased pulmonary blood flow. The shunt is from left to right in a PDA. The closure would stop this. There is increased workload on the left side of the heart with a PDA."
+                },
+                {
+                    question: "What cardiovascular defect results in obstruction to blood flow?",
+                    options: [
+                        "Aortic stenosis",
+                        "Tricuspid atresia",
+                        "Atrial septal defect",
+                        "Transposition of the great arteries"
+                    ],
+                    correct: 0,
+                    rationale: "Aortic stenosis is a narrowing or stricture of the aortic valve, causing resistance to blood flow in the left ventricle, decreased cardiac output, left ventricular hypertrophy, and pulmonary vascular congestion. Tricuspid atresia results in decreased pulmonary blood flow. The atrial septal defect results in increased pulmonary blood flow. Transposition of the great arteries results in mixed blood flow."
+                },
+                {
+                    question: "What structural defects constitute tetralogy of Fallot?",
+                    options: [
+                        "Pulmonary stenosis, ventricular septal defect, overriding aorta, right ventricular hypertrophy",
+                        "Aortic stenosis, ventricular septal defect, overriding aorta, right ventricular hypertrophy",
+                        "Aortic stenosis, ventricular septal defect, overriding aorta, left ventricular hypertrophy",
+                        "Pulmonary stenosis, ventricular septal defect, aortic hypertrophy, left ventricular hypertrophy"
+                    ],
+                    correct: 0,
+                    rationale: "Tetralogy of Fallot has these four characteristics: pulmonary stenosis, ventricular septal defect, overriding aorta, and right ventricular hypertrophy."
+                },
+                {
+                    question: "The parents of a 3-year-old child with congenital heart disease are afraid to let their child play with other children because of possible overexertion. How should the nurse reply to this concern?",
+                    options: [
+                        "The parents should meet all the child's needs.",
+                        "The child needs opportunities to play with peers.",
+                        "Constant parental supervision is needed to avoid overexertion.",
+                        "The child needs to understand that peers' activities are too strenuous."
+                    ],
+                    correct: 1,
+                    rationale: "The child needs opportunities for social development. Children are able to regulate and limit their activities based on their energy level. Parents must be encouraged to seek appropriate social activities for the child, especially before kindergarten. The child needs to have activities that foster independence."
+                },
+                {
+                    question: "What preparation should the nurse consider when educating a school-age child and the family for heart surgery?",
+                    options: [
+                        "Unfamiliar equipment should not be shown.",
+                        "Let the child hear the sounds of a cardiac monitor, including alarms.",
+                        "Explain that an endotracheal tube will not be needed if the surgery goes well.",
+                        "Discussion of postoperative discomfort and interventions is not necessary before the procedure."
+                    ],
+                    correct: 1,
+                    rationale: "The child and family should be exposed to the sights and sounds of the intensive care unit (ICU). All positive, nonfrightening aspects of the environment are emphasized. The family and child should make the decision about a tour of the unit if it is an option. The child should be shown unfamiliar equipment and its use demonstrated on a doll. Carefully prepare the child for the postoperative experience, including intravenous lines, incision, endotracheal tube, expected discomfort, and management strategies."
+                },
+                {
+                    question: "Seventy-two hours after cardiac surgery, a young child has a temperature of 38.4°C (101.1°F). What action should the nurse perform?",
+                    options: [
+                        "Report findings to the practitioner.",
+                        "Apply a hypothermia blanket.",
+                        "Keep the child warm with blankets.",
+                        "Record the temperature on the assessment flow sheet."
+                    ],
+                    correct: 0,
+                    rationale: "In the first 24 to 48 hours after surgery, the body temperature may increase to 37.8°C (100°F) as part of the inflammatory response to tissue trauma. If the temperature is higher or fever continues after this period, it is most likely a sign of an infection, and immediate investigation is indicated. A hypothermia blanket is not indicated for this level of temperature. Blankets should be removed from the child to keep the temperature from increasing. The temperature should be recorded, but the practitioner must be notified for evaluation."
+                },
+                {
+                    question: "What nursing consideration is important when suctioning a young child who has had heart surgery?",
+                    options: [
+                        "Perform suctioning at least every hour.",
+                        "Suction for no longer than 30 seconds at a time.",
+                        "Expect symptoms of respiratory distress when suctioning.",
+                        "Administer supplemental oxygen before and after suctioning."
+                    ],
+                    correct: 3,
+                    rationale: "When suctioning is indicated, supplemental oxygen is administered with a manual resuscitation bag before and after the procedure to prevent hypoxia. Suctioning should be done only as indicated and very carefully to avoid vagal stimulation. The child should be suctioned for no more than 5 seconds at a time. Symptoms of respiratory distress are avoided by using appropriate technique."
+                },
+                {
+                    question: "The nurse notices that a child is increasingly apprehensive and has tachycardia after heart surgery. The chest tube drainage is now 8 ml/kg/hr. What should be the nurse's initial intervention?",
+                    options: [
+                        "Apply warming blankets.",
+                        "Notify the practitioner of these findings.",
+                        "Give additional pain medication per protocol.",
+                        "Encourage child to cough, turn, and deep breathe."
+                    ],
+                    correct: 1,
+                    rationale: "The practitioner is notified immediately. Increases of chest tube drainage to more than 3 ml/kg/hr for more than 3 consecutive hours or 5 to 10 ml/kg in any 1 hour may indicate postoperative hemorrhage. Increased chest tube drainage with apprehensiveness and tachycardia may indicate cardiac tamponade—blood or fluid in the pericardial space constricting the heart—which is a life-threatening complication. Warming blankets are not indicated at this time. Additional pain medication can be given before the practitioner drains the fluid, but the notification is the first action. Encouraging the child to cough, turn, and deep breathe should be deferred until after evaluation by the practitioner."
+                },
+                {
+                    question: "A parent of a 7-year-old girl with a repaired ventricular septal defect (VSD) calls the cardiology clinic and reports that the child is just not herself. Her appetite is decreased, she has had intermittent fevers around 38°C (100.4°F), and now her muscles and joints ache. Based on this information, how should the nurse advise the mother?",
+                    options: [
+                        "Immediately bring the child to the clinic for evaluation.",
+                        "Come to the clinic next week on a scheduled appointment.",
+                        "Treat the signs and symptoms with acetaminophen and fluids because it is most likely a viral illness.",
+                        "Recognize that the child is trying to manipulate the parent by complaining of vague symptoms."
+                    ],
+                    correct: 0,
+                    rationale: "These are the insidious symptoms of bacterial endocarditis. Because the child is in a high-risk group for this disorder (VSD repair), immediate evaluation and treatment are indicated to prevent cardiac damage. With appropriate antibiotic therapy, bacterial endocarditis is successfully treated in approximately 80% of the cases. The child's complaints should not be dismissed. The low-grade fever is not a symptom that the child can fabricate."
+                },
+                {
+                    question: "What primary nursing intervention should be implemented to prevent bacterial endocarditis?",
+                    options: [
+                        "Counsel parents of high-risk children.",
+                        "Institute measures to prevent dental procedures.",
+                        "Encourage restricted mobility in susceptible children.",
+                        "Observe children for complications, such as embolism and heart failure."
+                    ],
+                    correct: 0,
+                    rationale: "The objective of nursing care is to counsel the parents of high-risk children about the need for both prophylactic antibiotics for dental procedures and maintaining excellent oral health. The child's dentist should be aware of the child's cardiac condition. Dental procedures should be done to maintain a high level of oral health. Restricted mobility in susceptible children is not indicated. Parents are taught to observe for unexplained fever, weight loss, or change in behavior."
+                },
+                {
+                    question: "What sign/symptom is a major clinical manifestation of rheumatic fever (RF)?",
+                    options: [
+                        "Fever",
+                        "Polyarthritis",
+                        "Osler nodes",
+                        "Janeway spots"
+                    ],
+                    correct: 1,
+                    rationale: "Polyarthritis, which is swollen, hot, red, and painful joints, is a major clinical manifestation. The affected joints will change every 1 or 2 days. The large joints are primarily affected. Fever is considered a minor manifestation of RF. Osler nodes and Janeway spots are characteristic of bacterial endocarditis."
+                },
+                {
+                    question: "What action by the school nurse is important in the prevention of rheumatic fever (RF)?",
+                    options: [
+                        "Encourage routine cholesterol screenings.",
+                        "Conduct routine blood pressure screenings.",
+                        "Refer children with sore throats for throat cultures.",
+                        "Recommend salicylates instead of acetaminophen for minor discomforts."
+                    ],
+                    correct: 2,
+                    rationale: "Nurses have a role in prevention, primarily in screening school-age children for sore throats caused by group A streptococci. They can actively participate in throat culture screening or refer children with possible streptococcal sore throats for testing. Routine cholesterol screenings and blood pressure screenings do not facilitate the recognition and treatment of group A hemolytic streptococci. Salicylates should be avoided routinely because of the risk of Reye syndrome after viral illnesses."
+                },
+                {
+                    question: "When caring for the child with Kawasaki disease, what should the nurse know to provide safe and effective care?",
+                    options: [
+                        "Aspirin is contraindicated.",
+                        "The principal area of involvement is the joints.",
+                        "The child's fever is usually responsive to antibiotics within 48 hours.",
+                        "Therapeutic management includes administration of gamma globulin and salicylates."
+                    ],
+                    correct: 3,
+                    rationale: "High-dose intravenous gamma globulin and salicylate therapy are indicated to reduce the incidence of coronary artery abnormalities when given within the first 10 days of the illness. Aspirin is part of the therapy. Mucous membranes, conjunctiva, changes in the extremities, and cardiac involvement are seen. The fever of Kawasaki disease is unresponsive to antibiotics. It is responsive to anti-inflammatory doses of aspirin and antipyretics."
+                },
+                {
+                    question: "Nursing care of the child with Kawasaki disease is challenging because of which occurrence?",
+                    options: [
+                        "The child's irritability",
+                        "Predictable disease course",
+                        "Complex antibiotic therapy",
+                        "The child's ongoing requests for food"
+                    ],
+                    correct: 0,
+                    rationale: "Patient irritability is a hallmark of Kawasaki disease and is the most challenging problem. A quiet environment is necessary to promote rest. The diagnosis is often difficult to make, and the course of the disease can be unpredictable. Intravenous gamma globulin and salicylates are the therapy of choice, not antibiotics. The child often is reluctant to eat. Soft foods and fluids should be offered to prevent dehydration."
+                },
+                {
+                    question: "The diagnosis of hypertension depends on accurate assessment of blood pressure (BP). What is the appropriate technique to measure a child's BP?",
+                    options: [
+                        "Assess BP while the child is standing.",
+                        "Compare left arm with left leg BP readings.",
+                        "Use a narrow cuff to ensure that the readings are correct.",
+                        "Measure BP with the child in the sitting position on three separate occasions."
+                    ],
+                    correct: 3,
+                    rationale: "The diagnosis of hypertension is made after the BP is elevated on three separate occasions. Take the BP in a quiet area with the appropriate size cuff and the child sitting. Although left arm and left leg BP readings may be compared, it is not the procedure to diagnose hypertension. The appropriate size cuff is indicated. The most common cause of inaccurate readings is the use of a cuff that is too small."
+                },
+                {
+                    question: "What type of drug reduces hypertension by interfering with the production of angiotensin II?",
+                    options: [
+                        "Diuretics",
+                        "Vasodilators",
+                        "Beta-blockers",
+                        "Angiotensin-converting enzyme (ACE) inhibitors"
+                    ],
+                    correct: 3,
+                    rationale: "ACE inhibitors act by interfering with the production of angiotensin II, which is a potent vasoconstrictor. Diuretics lower blood pressure by increasing fluid output. Vasodilators act on the vascular smooth muscle. By causing arterial dilation, blood pressure is lowered. Beta-blockers interfere with beta stimulation and depress renin output."
+                },
+                {
+                    question: "Selective cholesterol screening is recommended for children older than the age of 2 years with which risk factor?",
+                    options: [
+                        "Body mass index (BMI) = 95th percentile",
+                        "Blood pressure = 50th percentile",
+                        "Parent with a blood cholesterol level of 200 mg/dl",
+                        "Recently diagnosed cardiovascular disease in a 75-year-old grandparent"
+                    ],
+                    correct: 0,
+                    rationale: "Obesity is an indication for cholesterol screening in children. A BMI in the 95th percentile or higher is considered obese. Children who are hypertensive meet the criteria for screening, but blood pressure in the 50th percentile is within the normal range. A parent or grandparent with a cholesterol level of 240 mg/dl or higher places the child at risk. Early cardiovascular disease in a first- or second-degree relative is a risk factor. Age 75 years is not considered early."
+                },
+                {
+                    question: "What condition is the leading cause of death after heart transplantation?",
+                    options: [
+                        "Infection",
+                        "Rejection",
+                        "Cardiomyopathy",
+                        "Heart failure"
+                    ],
+                    correct: 1,
+                    rationale: "The posttransplant course is complex. The leading cause of death after cardiac transplant is rejection. Infection is a continued risk secondary to the immunosuppression necessary to prevent rejection. Cardiomyopathy is one of the indications for cardiac transplant. Heart failure is not a leading cause of death."
+                },
+                {
+                    question: "The nurse is giving discharge instructions to the parent of a 6-year-old child who had a cardiac catheterization 4 hours ago. What statement by the parent indicates a correct understanding of the teaching?",
+                    options: [
+                        "'My child should not attend school for the next 5 days.'",
+                        "'I should change the bandage every day for the next 2 days.'",
+                        "'My child can take a tub bath but should avoid taking a shower for the next 4 days.'",
+                        "'I should expect the site to be red and swollen for the next 3 days.'"
+                    ],
+                    correct: 1,
+                    rationale: "Discharge instructions for a parent of a child who recently had a cardiac catheterization should include changing the bandage every day for the next 2 days. The child should avoid strenuous exercise but can go back to school. The child should avoid a tub bath, but an older child could take a shower the first day after the catheterization. The site should not have swelling or redness; if there is, it should be reported to the health care practitioner."
+                },
+                {
+                    question: "A child with heart failure is on Lanoxin (digoxin). The laboratory value a nurse must closely monitor is which?",
+                    options: [
+                        "Serum sodium",
+                        "Serum potassium",
+                        "Serum glucose",
+                        "Serum chloride"
+                    ],
+                    correct: 1,
+                    rationale: "A fall in the serum potassium level enhances the effects of digoxin, increasing the risk of digoxin toxicity. Increased serum potassium levels diminish digoxin's effect. Therefore, serum potassium levels (normal range, 3.5-5.5 mmol/L) must be carefully monitored."
+                },
+                {
+                    question: "An infant has tetralogy of Fallot. In reviewing the record, what laboratory result should the nurse expect to be documented?",
+                    options: [
+                        "Leukopenia",
+                        "Polycythemia",
+                        "Anemia",
+                        "Increased platelet level"
+                    ],
+                    correct: 1,
+                    rationale: "Persistent hypoxemia that occurs with tetralogy of Fallot stimulates erythropoiesis, which results in polycythemia, an increased number of red blood cells."
+                },
+                {
+                    question: "What child has a cyanotic congenital heart defect?",
+                    options: [
+                        "An infant with patent ductus arteriosus",
+                        "A 1-year-old infant with atrial septal defect",
+                        "A 2-month-old infant with tetralogy of Fallot",
+                        "A 6-month-old infant with repaired ventricular septal defect"
+                    ],
+                    correct: 2,
+                    rationale: "Tetralogy of Fallot is a cyanotic congenital heart defect. Patent ductus arteriosus, atrial septal defect, and ventricular septal defect are acyanotic congenital heart defects."
+                },
+                {
+                    question: "The nurse is teaching parents about administering digoxin (Lanoxin). What instructions should the nurse tell the parents?",
+                    options: [
+                        "If the child vomits, give another dose.",
+                        "Give the medication at regular intervals.",
+                        "If a dose is missed, give a give an extra dose.",
+                        "Give the medication mixed with the child's formula."
+                    ],
+                    correct: 1,
+                    rationale: "The family should be taught to administer digoxin at regular intervals. If a dose is missed, an extra dose should not be given; the same schedule should be maintained. If the child vomits, do not give a second dose. The drug should not be mixed with foods or other fluids because refusal to consume these would result in inaccurate intake of the drug."
+                },
+                {
+                    question: "Heart failure (HF) is a problem after the child has had a congenital heart defect repaired. The nurse knows a sign of HF is what?",
+                    options: [
+                        "Wheezing",
+                        "Increased blood pressure",
+                        "Increased urine output",
+                        "Decreased heart rate"
+                    ],
+                    correct: 0,
+                    rationale: "A clinical manifestation of heart failure is wheezing from pulmonary congestion. The blood pressure decreases, urine output decreases, and heart rate increases."
+                },
+                {
+                    question: "The health care provider suggests surgery be performed for ventricular septal defect to prevent what complication?",
+                    options: [
+                        "Pulmonary hypertension",
+                        "Right-to-left shunt of blood",
+                        "Pulmonary embolism",
+                        "Left ventricular hypertrophy"
+                    ],
+                    correct: 0,
+                    rationale: "Congenital heart defects with a large left-to-right shunt (e.g., in ventricular septal defect, patent ductus arteriosus, or complete AV canal), which cause increased pulmonary blood flow, may result in pulmonary hypertension. If these defects are not repaired early, the high pulmonary flow will cause changes in the pulmonary artery vessels, and the vessels will lose their elasticity. The blood does not shunt right to left, a pulmonary embolism is not a complication of ventricular septal defect, and the left ventricle does not hypertrophy."
+                },
+                {
+                    question: "A 1-year-old has been admitted for complete repair of a tetralogy of Fallot. What assessment finding should the nurse expect to be documented?",
+                    options: [
+                        "Weight gain",
+                        "Pale skin color",
+                        "Increasing cyanosis",
+                        "Decrease in hemoglobin and hematocrit"
+                    ],
+                    correct: 2,
+                    rationale: "Elective repair of tetralogy of Fallot is usually performed in the first year of life. Indications for repair include increasing cyanosis and the development of hypercyanotic spells. The child would not have a weight gain, pale skin color, or decrease in hemoglobin and hematocrit."
+                },
+                {
+                    question: "A 6-month-old infant presents to the clinic with failure to thrive, a history of frequent respiratory infections, and increasing exhaustion during feedings. On physical examination, a systolic murmur is detected, no central cyanosis, and chest radiography reveals cardiomegaly. An echocardiogram is done that shows left-to-right shunting. This assessment data is characteristic of what?",
+                    options: [
+                        "Tetralogy of Fallot",
+                        "Coarctation of the aorta",
+                        "Pulmonary stenosis",
+                        "Ventricular septal defect"
+                    ],
+                    correct: 3,
+                    rationale: "Heart failure is common with ventricular septal defect that causes failure to thrive, respiratory infections, and an increase in exhaustion during feedings. There is a characteristic murmur. The other defects do not have left-to-right shunting."
+                },
+                {
+                    question: "An infant is diagnosed with transposition of the great vessels. Prostaglandin E1 is given intravenously. The parents ask how long the child will remain on the prostaglandin E1. What is the appropriate response by the nurse?",
+                    options: [
+                        "Prostaglandin E1 will be given intermittently until corrective surgery is performed.",
+                        "Prostaglandin E1 will be given continuously until corrective surgery is performed.",
+                        "Prostaglandin E1 will be given continuously throughout the preoperative and postoperative periods until the child is stable.",
+                        "Prostaglandin E1 will be given intermittently throughout the preoperative and postoperative periods until the child is stable."
+                    ],
+                    correct: 1,
+                    rationale: "To provide intracardiac mixing for a child with transposition of the great arteries, intravenous prostaglandin E1 is administered continuously to keep the ductus arteriosus open to temporarily increase blood mixing and provide an oxygen saturation of 75% or to maintain cardiac output until surgery. It is discontinued after surgery."
+                },
+                {
+                    question: "What medication used to treat heart failure (HF) is a diuretic?",
+                    options: [
+                        "Captopril (Capoten)",
+                        "Digoxin (Lanoxin)",
+                        "Hydrochlorothiazide (Diuril)",
+                        "Carvedilol (Coreg)"
+                    ],
+                    correct: 2,
+                    rationale: "Hydrochlorothiazide is a diuretic. Captopril is an ACE inhibitor, digoxin is a digital glycoside, and carvedilol is a beta-blocker."
+                },
+                {
+                    question: "The nurse is preparing to give digoxin (Lanoxin) to a 9-month-old infant. The nurse checks the dose and draws up 4 ml of the drug. The most appropriate nursing action is which?",
+                    options: [
+                        "Mix the dose with juice to disguise its taste.",
+                        "Do not give the dose; suspect a dosage error.",
+                        "Check the heart rate; administer digoxin if the rate is greater than 100 beats/min.",
+                        "Check the heart rate; administer digoxin if the rate is greater than 80 beats/min."
+                    ],
+                    correct: 1,
+                    rationale: "Infants rarely receive more than 1 ml (50 mcg, or 0.05 mg) of digoxin in one dose; a higher dose is an immediate warning of a dosage error. To ensure safety, compare the calculation with that of another staff member before giving digoxin."
+                },
+                {
+                    question: "A 12-year-old child with Down syndrome is admitted to the hospital for surgical correction of a heart defect. The boy's mental age is that of a 3-year-old child. The nurse should prepare the child and family for surgery by what method?",
+                    options: [
+                        "Extend preoperative teaching over several days.",
+                        "Explain the surgery to the child and the parents in detail.",
+                        "Exclude the child from preoperative teaching; teach only the parents.",
+                        "Provide teaching to the parents, keeping the information to the child simple."
+                    ],
+                    correct: 3,
+                    rationale: "Important factors to consider in planning preparation strategies before cardiac surgery are the child's cognitive developmental level, previous hospital experiences, temperament and coping style, the timing of the preparation, and the involvement of the parents. The teaching should be provided to the parents, keeping the information simple to the child with a mental age of 3 years old."
+                },
+                {
+                    question: "Bacterial infective endocarditis (IE) should be treated with which protocol?",
+                    options: [
+                        "Oral antibiotics for 6 months",
+                        "Oral antibiotics (penicillin) for 10 full days",
+                        "IV antibiotics, diuretics, and digoxin",
+                        "IV antibiotics (penicillin type) for 2 to 8 weeks"
+                    ],
+                    correct: 3,
+                    rationale: "Treatment for IE includes the administration of high-dose antibiotics given intravenously for 2 to 8 weeks to completely eradicate the infecting microorganism."
+                },
+                {
+                    question: "A child is recovering from Kawasaki disease (KD). The child should be monitored for which?",
+                    options: [
+                        "Anemia",
+                        "Electrocardiograph (ECG) changes",
+                        "Elevated white blood cell count",
+                        "Decreased platelets"
+                    ],
+                    correct: 1,
+                    rationale: "The most serious complication of KD is the development of coronary artery aneurysms and the potential for myocardial infarction in children with aneurysm formation. The nurse should monitor any ECG changes."
+                },
+                {
+                    question: "The test that provides the most reliable evidence of recent streptococcal infection is which?",
+                    options: [
+                        "Throat culture",
+                        "Mantoux test",
+                        "Antistreptolysin O test",
+                        "Elevation of liver enzymes"
+                    ],
+                    correct: 2,
+                    rationale: "Antistreptolysin O (ASLO) titers measure the concentration of antibodies formed in the blood against this product. Normally, the titers begin to rise about 7 days after onset of the infection and reach maximum levels in 4 to 6 weeks. Therefore, a rising titer demonstrated by at least two ASLO tests is the most reliable evidence of recent streptococcal infection."
+                }
+            ],
+            
+            'multiple-response': [
+                {
+                    question: "The nurse is caring for a child with Kawasaki disease in the acute phase. What clinical manifestations should the nurse expect to observe? (Select all that apply.)",
+                    options: [
+                        "Osler nodes",
+                        "Cervical lymphadenopathy",
+                        "Strawberry tongue",
+                        "Chorea",
+                        "Erythematous palms",
+                        "Polyarthritis"
+                    ],
+                    correct: [1, 2, 4],
+                    rationale: "Clinical manifestations of Kawasaki disease in the acute phase include cervical lymphadenopathy, a strawberry tongue, and erythematous palms. Osler nodes are a clinical manifestation of endocarditis. Chorea and polyarthritis are seen in rheumatic fever."
+                },
+                {
+                    question: "The nurse is caring for a child after cardiac surgery. What interventions should the nurse implement with regard to chest tubes placed to a water-seal drainage system? (Select all that apply.)",
+                    options: [
+                        "Maintain sterility.",
+                        "Check for tube patency.",
+                        "Do not interrupt the water-seal drainage system.",
+                        "Clamp the chest tube when ambulating the child.",
+                        "Measure the drainage by emptying the collection chamber every shift."
+                    ],
+                    correct: [0, 1, 2],
+                    rationale: "Nursing considerations with regard to chest tubes attached to a water-seal drainage system include (1) do not interrupt water-seal drainage unless the chest tube is clamped, (2) check for tube patency (fluctuation in the water-seal chamber), and (3) maintain sterility. The chest tube should not be clamped when ambulating the child and the drainage is measured in the collection chamber, not emptied."
+                },
+                {
+                    question: "The nurse is caring for a child with secondary hypertension. What renal disorders are associated with secondary hypertension? (Select all that apply.)",
+                    options: [
+                        "Renal tumor",
+                        "Hydronephrosis",
+                        "Vesicoureteral reflux",
+                        "Glomerulonephritis",
+                        "Urinary tract infection"
+                    ],
+                    correct: [0, 1, 3],
+                    rationale: "Renal disorders that can cause secondary hypertension include a renal tumor, hydronephrosis, and glomerulonephritis. Vesicoureteral reflux or urinary tract infections do not cause secondary hypertension."
+                },
+                {
+                    question: "The nurse is teaching an adolescent with hypertension foods recommended on the DASH diet. What foods should the nurse include in the teaching session? (Select all that apply.)",
+                    options: [
+                        "Green beans",
+                        "Energy drinks",
+                        "Low-fat yogurt",
+                        "Chocolate milk",
+                        "Whole grain bread"
+                    ],
+                    correct: [0, 2, 4],
+                    rationale: "The DASH diet provides a lower salt diet that has been associated with improvement in BP and is believed to be beneficial for all patients with hypertension. DASH stands for Dietary Approaches to Stop Hypertension. The DASH diet is plentiful in vegetables, fruits, whole grains, and low-fat dairy products and low in sugar and salt. Energy drinks are high in sugar, and chocolate milk is high in fat."
+                },
+                {
+                    question: "An adolescent is being placed on an ACE inhibitor. What should the nurse inform the adolescent with regard to this medication? (Select all that apply.)",
+                    options: [
+                        "Stay well hydrated.",
+                        "Increase intake of potassium.",
+                        "Avoid rapid position changes.",
+                        "Take the medication with meals.",
+                        "Side effects may include a cough."
+                    ],
+                    correct: [0, 2, 4],
+                    rationale: "The adolescent should be instructed to stay well hydrated and avoid rapid position changes and that side effects may include a cough when on ACE inhibitors. ACE inhibitors do not deplete potassium, and they should be taken 1 hour before meals to increase absorption."
+                },
+                {
+                    question: "An adolescent is being placed on a beta-blocker. What should the nurse inform the adolescent with regard to this medication? (Select all that apply.)",
+                    options: [
+                        "Medication may cause fatigue.",
+                        "Side effects may include impotence.",
+                        "Side effects may include bradycardia.",
+                        "Take the medication 1 hour before meals.",
+                        "Side effects may include peripheral edema."
+                    ],
+                    correct: [0, 1, 2],
+                    rationale: "The adolescent should be instructed that the medication may cause fatigue, impotence, and bradycardia. The medications should be taken with meals and side effects do not include peripheral edema."
+                },
+                {
+                    question: "An adolescent is being placed on a calcium channel blocker. What should the nurse inform the adolescent with regard to this medication? (Select all that apply.)",
+                    options: [
+                        "The medication may cause fatigue.",
+                        "The medication may increase heart rate.",
+                        "The medication may cause constipation.",
+                        "The medication may cause cold extremities.",
+                        "The medication may cause peripheral edema."
+                    ],
+                    correct: [1, 2, 4],
+                    rationale: "Calcium channel blockers may cause an increase in heart rate, constipation, and peripheral edema. Beta-blockers can cause fatigue and cold extremities, but calcium channel blockers do not cause these potential side effects."
+                },
+                {
+                    question: "The nurse is teaching an adolescent with elevated triglycerides foods that should be decreased. What foods should the nurse include in the teaching? (Select all that apply.)",
+                    options: [
+                        "Avocados",
+                        "Canola oil",
+                        "White flour",
+                        "White rice",
+                        "Sugary cereals"
+                    ],
+                    correct: [2, 3, 4],
+                    rationale: "If triglycerides are elevated, dietary recommendations include decreasing the intake of foods high in simple carbohydrates such as white flour, white rice, white bread, white pasta, sugary cereals, juice, and soda. Avocados and canola oil have beneficial effects on HDL, which is the good cholesterol."
+                },
+                {
+                    question: "What interventions should the nurse anticipate being administered to a child with supraventricular tachycardia (SVT)?",
+                    options: [
+                        "Bed rest",
+                        "Applying ice to the face",
+                        "Administration of atropine",
+                        "Administration of adenosine (Adenocor)",
+                        "Having the child perform a Valsalva maneuver"
+                    ],
+                    correct: [1, 3, 4],
+                    rationale: "The treatment of SVT depends on the degree of compromise imposed by the dysrhythmia. In some instances, vagal maneuvers, such as applying ice to the face, massaging the carotid artery (on one side of the neck only), or having an older child perform a Valsalva maneuver (e.g., exhaling against a closed glottis, blowing on the thumb as if it were a trumpet for 30 to 60 seconds), can reverse the SVT. When vagal maneuvers fail, adenosine may be used to end the episode of SVT by impairing AV node conduction. IV adenosine is the first line pharmacologic measure for termination of SVT in infants and children in the emergency setting. Administration of atropine or bed rest will not resolve SVT."
+                }
+            ]
+        };
+
+        let currentSection = 'multiple-choice';
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let selectedOptions = [];
+        let isSubmitted = false;
+        let answers = {
+            'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+            'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+            'all': Array(
+                sections['multiple-choice'].length + 
+                sections['multiple-response'].length
+            ).fill(null)
+        };
+
+        function setSection(section) {
+            currentSection = section;
+            currentQuestion = 0;
+            selectedOption = null;
+            selectedOptions = [];
+            isSubmitted = false;
+            
+            document.querySelectorAll('.section-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadQuestion();
+        }
+
+        function isMultipleResponseQuestion() {
+            if (currentSection === 'all') {
+                const questionData = getCurrentQuestionData();
+                return Array.isArray(questionData?.correct);
+            }
+            return currentSection === 'multiple-response';
+        }
+
+        function getCurrentQuestionData() {
+            if (currentSection === 'all') {
+                if (currentQuestion < sections['multiple-choice'].length) {
+                    return {
+                        ...sections['multiple-choice'][currentQuestion],
+                        section: 'multiple-choice',
+                        originalIndex: currentQuestion
+                    };
+                } else {
+                    const idx = currentQuestion - sections['multiple-choice'].length;
+                    return {
+                        ...sections['multiple-response'][idx],
+                        section: 'multiple-response',
+                        originalIndex: idx
+                    };
+                }
+            } else {
+                return sections[currentSection][currentQuestion];
+            }
+        }
+
+        function loadQuestion() {
+            const questionData = getCurrentQuestionData();
+            
+            if (!questionData) return;
+            
+            const isMultipleResponse = isMultipleResponseQuestion();
+            
+            // Update UI elements visibility
+            document.getElementById('multipleSelectIndicator').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('multipleSelectInstructions').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('cancelBtn').classList.remove('show');
+            document.getElementById('submitBtn').style.display = isMultipleResponse ? 'flex' : 'none';
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            
+            let totalQuestions;
+            if (currentSection === 'all') {
+                totalQuestions = sections['multiple-choice'].length + 
+                               sections['multiple-response'].length;
+            } else {
+                totalQuestions = sections[currentSection].length;
+            }
+            
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('counter').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+            
+            document.getElementById('question').textContent = questionData.question;
+            loadOptions(questionData);
+            
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('rationale').classList.remove('show');
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            const isLastQuestion = currentQuestion >= totalQuestions - 1;
+            document.getElementById('nextBtn').textContent = isLastQuestion ? 'Finish ➡️' : 'Next ➡️';
+            document.getElementById('nextBtn').disabled = true;
+            
+            // Load saved answer state
+            const storedAnswer = answers[currentSection][currentQuestion];
+            if (storedAnswer !== null && storedAnswer !== undefined) {
+                if (isMultipleResponse) {
+                    selectedOptions = storedAnswer.selected || [];
+                    isSubmitted = storedAnswer.submitted || false;
+                    
+                    if (isSubmitted) {
+                        showFeedbackForMultipleResponse(questionData);
+                        document.getElementById('nextBtn').disabled = false;
+                        document.getElementById('submitBtn').disabled = true;
+                    } else {
+                        highlightSelectedOptionsForMultipleResponse();
+                        document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+                        document.getElementById('nextBtn').disabled = false;
+                        if (selectedOptions.length > 0) {
+                            document.getElementById('cancelBtn').classList.add('show');
+                        }
+                    }
+                } else {
+                    selectedOption = storedAnswer;
+                    highlightSelectedOption(storedAnswer, questionData);
+                    showFeedback(storedAnswer, questionData);
+                    document.getElementById('nextBtn').disabled = false;
+                    document.getElementById('cancelBtn').classList.add('show');
+                }
+            } else {
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                if (isMultipleResponse) {
+                    document.getElementById('submitBtn').disabled = true;
+                }
+            }
+        }
+
+        function loadOptions(questionData) {
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionElement.onclick = () => selectOption(index, questionData);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                handleMultipleResponseSelect(index, questionData);
+            } else {
+                handleSingleSelect(index, questionData);
+            }
+        }
+
+        function handleSingleSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            answers[currentSection][currentQuestion] = index;
+            selectedOption = index;
+            
+            highlightSelectedOption(index, questionData);
+            showFeedback(index, questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.add('show');
+        }
+
+        function handleMultipleResponseSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            if (isSubmitted) return;
+            
+            const optionIndex = selectedOptions.indexOf(index);
+            if (optionIndex === -1) {
+                selectedOptions.push(index);
+            } else {
+                selectedOptions.splice(optionIndex, 1);
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Save the selection
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].selected = selectedOptions;
+            answers[currentSection][currentQuestion].submitted = false;
+            
+            document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.toggle('show', selectedOptions.length > 0);
+        }
+
+        function highlightSelectedOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                
+                if (i === index) {
+                    if (i === questionData.correct) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        options[questionData.correct].classList.add('correct');
+                    }
+                }
+            });
+        }
+
+        function highlightSelectedOptionsForMultipleResponse() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function submitAnswer() {
+            if (selectedOptions.length === 0) return;
+            
+            isSubmitted = true;
+            
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].submitted = true;
+            
+            const questionData = getCurrentQuestionData();
+            showFeedbackForMultipleResponse(questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('cancelBtn').classList.remove('show');
+        }
+
+        function showFeedback(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            if (index === questionData.correct) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Correct! Well done.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                const correctLetter = String.fromCharCode(65 + questionData.correct);
+                feedbackText.textContent = `Incorrect. Correct: ${correctLetter}`;
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function showFeedbackForMultipleResponse(questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            const allCorrectSelected = questionData.correct.every(c => selectedOptions.includes(c));
+            const noIncorrectSelected = selectedOptions.every(s => questionData.correct.includes(s));
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (questionData.correct.includes(i)) {
+                    option.classList.add('correct');
+                }
+                if (selectedOptions.includes(i) && !questionData.correct.includes(i)) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Perfect! All correct selected.';
+            } else if (allCorrectSelected && !noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Almost! All correct + some incorrect.';
+            } else if (!allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Partially correct! Some correct, missed others.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                feedbackText.textContent = 'Incorrect. Missed correct & selected incorrect.';
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function cancelSelection() {
+            const questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                selectedOptions = [];
+                isSubmitted = false;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                if (answers[currentSection][currentQuestion]) {
+                    answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+                }
+                
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('cancelBtn').classList.remove('show');
+            } else {
+                answers[currentSection][currentQuestion] = null;
+                selectedOption = null;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('cancelBtn').classList.remove('show');
+            }
+        }
+
+        function nextCard() {
+            const totalQuestions = getTotalQuestions();
+            
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                loadQuestion();
+            } else {
+                let correctCount = 0;
+                let totalAnswered = 0;
+                
+                Object.keys(answers).forEach(section => {
+                    answers[section].forEach((answer, index) => {
+                        if (answer !== null) {
+                            totalAnswered++;
+                            const questionData = getQuestionData(section, index);
+                            
+                            if (Array.isArray(questionData?.correct)) {
+                                if (answer.submitted && Array.isArray(answer.selected)) {
+                                    const allCorrect = questionData.correct.every(c => answer.selected.includes(c));
+                                    const noIncorrect = answer.selected.every(s => questionData.correct.includes(s));
+                                    if (allCorrect && noIncorrect) correctCount++;
+                                }
+                            } else {
+                                if (answer === questionData?.correct) correctCount++;
+                            }
+                        }
+                    });
+                });
+                
+                alert(`Quiz completed!\n\nAnswered: ${totalAnswered}\nCorrect: ${correctCount}\n\nClick OK to restart.`);
+                
+                currentSection = 'multiple-choice';
+                currentQuestion = 0;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                answers = {
+                    'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+                    'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+                    'all': Array(
+                        sections['multiple-choice'].length + 
+                        sections['multiple-response'].length
+                    ).fill(null)
+                };
+                
+                setSection('multiple-choice');
+            }
+        }
+
+        function previousCard() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                const storedAnswer = answers[currentSection][currentQuestion];
+                
+                if (isMultipleResponseQuestion()) {
+                    selectedOptions = storedAnswer?.selected || [];
+                    isSubmitted = storedAnswer?.submitted || false;
+                } else {
+                    selectedOption = storedAnswer;
+                }
+                
+                loadQuestion();
+            }
+        }
+
+        function getTotalQuestions() {
+            if (currentSection === 'all') {
+                return sections['multiple-choice'].length + 
+                       sections['multiple-response'].length;
+            } else {
+                return sections[currentSection].length;
+            }
+        }
+
+        function getQuestionData(section, index) {
+            if (section === 'all') {
+                if (index < sections['multiple-choice'].length) {
+                    return sections['multiple-choice'][index];
+                } else {
+                    return sections['multiple-response'][index - sections['multiple-choice'].length];
+                }
+            } else {
+                return sections[section][index];
+            }
+        }
+
+        // Initialize
+        setSection('multiple-choice');
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= '1' && event.key <= '5') {
+                const index = parseInt(event.key) - 1;
+                const questionData = getCurrentQuestionData();
+                selectOption(index, questionData);
+            } else if (event.key >= 'a' && event.key <= 'e') {
+                const index = event.key.charCodeAt(0) - 97;
+                const questionData = getCurrentQuestionData();
+                selectOption(index, questionData);
+            } else if (event.key === 'Enter' && isMultipleResponseQuestion()) {
+                if (selectedOptions.length > 0 && !isSubmitted) {
+                    submitAnswer();
+                }
+            } else if (event.key === 'ArrowLeft') {
+                if (!document.getElementById('prevBtn').disabled) {
+                    previousCard();
+                }
+            } else if (event.key === 'ArrowRight') {
+                if (!document.getElementById('nextBtn').disabled) {
+                    nextCard();
+                }
+            } else if (event.key === ' ' || event.key === 'Spacebar') {
+                if (!document.getElementById('nextBtn').disabled && !isMultipleResponseQuestion()) {
+                    nextCard();
+                }
+            } else if (event.key === 'Escape') {
+                cancelSelection();
+            }
+        });
+    </script>
+</body>
+</html>
